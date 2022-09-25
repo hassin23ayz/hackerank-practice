@@ -28,6 +28,8 @@ void print_arr_elems(int* arr, int sz)
 
 void make_arr_ascen(int* arr)
 {
+    printf("in %s , sizeof arr %lu \n\r", __func__ , sizeof(arr) );
+
     // array sz 
     unsigned long addr_end_a   = (&a+1);
     unsigned long addr_start_a = &a;
@@ -37,7 +39,7 @@ void make_arr_ascen(int* arr)
     int  no_of_elems = addr_diff / sizeof(int) ;
     int* arrTmp =  (int*) calloc(no_of_elems , sizeof(int));
     memcpy(arrTmp, arr, sizeof(int)*no_of_elems  );
-    print_arr_elems(arrTmp, no_of_elems);
+    // print_arr_elems(arrTmp, no_of_elems);
 
     int swap;
 
@@ -54,8 +56,8 @@ void make_arr_ascen(int* arr)
             }
         }
     }
-    print_arr_elems(arrTmp, 7);
-
+    // print_arr_elems(arrTmp, 7);
+    memcpy(arr, arrTmp, sizeof(int)*no_of_elems);
 }
 
 void analyze_array_sizes(void)
@@ -72,12 +74,42 @@ void analyze_array_sizes(void)
 }
 
 
-
 int main(int argc, char const *argv[])
 {
     // analyze_array_sizes();
 
-    make_arr_ascen(a);
+    print_arr_elems(a, 7);
+    print_arr_elems(b, 7);
 
+    make_arr_ascen(a);
+    make_arr_ascen(b);
+
+    print_arr_elems(a, 7);
+    print_arr_elems(b, 7);
+
+
+    printf("sizeof array a %lu", sizeof(a) );
+
+    // applying 2 pointer theory to find out elements 
+
+    int arr_sz = (sizeof(a)/sizeof(int)) ;
+    int i    = 0;
+    int j    = arr_sz - 1;
+
+    int X = 15;
+
+    // move the i pointer right -> till then end of the array 
+    while( i < arr_sz)
+    {
+        // for a fixed position of i move the j pointer left till sum is greater than X
+        while( (a[i] + b[j]) > X && j > 0 ) j--;
+
+        // check if sum has reached the target value 
+        if( a[i] + b[j] == X){
+            printf(" %d + %d : %d\n\r", a[i], b[j], a[i] + b[j]);
+            break;
+        }
+        i++; // move the i pointer till then end of the array 
+    }
     return 0;
 }

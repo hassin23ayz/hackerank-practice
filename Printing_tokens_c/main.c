@@ -37,10 +37,10 @@ int main() {
     
     // char* restOfStr = parseTillSpace(s, substr);
 
-    while(parseTillSpace(s, substr) != NULL)
-    {
-        printf("%s\n\r", substr);
-    }
+
+    
+
+    
 
     // printf("%s\n\r", restOfStr);
     // printf("%s\n\r", substr);

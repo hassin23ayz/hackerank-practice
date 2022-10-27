@@ -8,19 +8,59 @@
 #include <string.h>
 #include <stdlib.h>
 
-struct LL{
+struct Node{
     int val;
-    struct LL* next;
+    struct Node* next;
 };
 
-typedef struct LL LL;
+typedef struct Node Node;
 
 int main() 
 {
-    // get the no of elems in the list 
-    int n ;
-    scanf("%d", &n);
-   
+    // get the no of elems user wants to create 
+    // int n ;
+    // scanf("%d", &n);
+
+    // a linked list has a head 
+    Node* ptr_head = NULL;
+    Node* ptr_lastCreated = NULL;
+
+    // create 3 items as Linked List and set the Head
+    for(int i=0; i<3; i++)
+    {
+        // create an element from Heap 
+        Node* aNode = malloc(sizeof(Node));
+        if(i == 0)
+        {
+            // head should point to the first Node 
+            ptr_head = aNode;
+
+            aNode->val  = (i+1)*10;
+            aNode->next = NULL;
+        }
+        else
+        {
+            aNode->val = (i+1)*10;
+            aNode->next = NULL;
+
+            Node* lastNodeCreated = (Node*)ptr_lastCreated;
+            lastNodeCreated->next = aNode;
+        }
+        ptr_lastCreated = aNode;
+    }
+
+
+    // traverse through the list 
+    // we only have ptr_head
+    Node* ptr_track = (Node*)ptr_head;
+    do
+    {
+        int valRead = ptr_track->val;
+        printf("%lld : %d\n", ptr_track, valRead);
+
+        ptr_track = ptr_track->next;
+    }while(ptr_track != NULL);
+
 
     return 0;
 }
